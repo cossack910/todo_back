@@ -1,0 +1,107 @@
+openapi: "3.0.3"
+
+info:
+  title: "Todo API"
+  version: "1.0.0"
+
+servers:
+  - url: http://api.example.com/api
+    description: 本番サーバー(大嘘)
+  - url: http://staging-api.example.com
+    description: ステージングサーバー(大嘘)
+
+paths:
+  "/api/auth/register":
+    post:
+      summary: "新規ユーザー登録"
+      description: ユーザーを新規登録するためのAPIです。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: "ユーザー名"
+                  example: "godkami"
+                email:
+                  type: string
+                  description: "メールアドレス"
+                  example: "user@example.com"
+                password:
+                  type: string
+                  description: "パスワード"
+                  example: "securePassword123"
+      responses:
+        201:
+          description: "User created successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultcode:
+                    type: integer
+                    example: 0
+                  message:
+                    type: string
+                    example: "User registration successful"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultcode:
+                    type: integer
+                    example: 9
+                  message:
+                    type: string
+                    example: "Invalid input data"
+
+
+  "/api/auth/login":
+    post:
+      summary: "User authentication"
+      description: "This endpoint authenticates a user with the provided username and password"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: "User authenticated successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultcode:
+                    type: integer
+                    example: 0
+                  message:
+                    type: string
+                    example: "User authentication successful"
+        401:
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultcode:
+                    type: integer
+                    example: 9
+                  message:
+                    type: string
+                    example: "Invalid username or password"
