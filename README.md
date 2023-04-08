@@ -11,3 +11,4 @@ model作製コマンド
 php artisan make:model モデル名
 ```
 
+あああ
