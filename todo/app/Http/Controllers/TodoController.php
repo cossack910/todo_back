@@ -12,7 +12,6 @@ class TodoController extends Controller
     public function show()
     {
         $tasks_model = new Task();
-        $tasks = $tasks_model->all();
-        return response()->json($tasks);
+        return response()->json($tasks_model->all());
     }
 }
