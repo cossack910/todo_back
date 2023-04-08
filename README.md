@@ -11,4 +11,5 @@ model作製コマンド
 php artisan make:model モデル名
 ```
 
-あああ
+## openAPI
+https://cossack910.github.io/todo_back/dist/
