@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Http\Request\RegisterRequest;
@@ -11,9 +12,12 @@ use App\Const\AuthConst;
 use Exception;
 
 
+
 class RegisterController extends Controller
 {
+
     public function regist(RegisterRequest $request)
+
     {
         try {
             //トランザクション開始
