@@ -2,38 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use Exception;
+use App\Http\Request\RegisterRequest;
 use App\Models\User;
 use App\Common\Util;
 use App\Const\AuthConst;
+use Exception;
 
 
 class RegisterController extends Controller
 {
-    public function regist(Request $request)
+    public function regist(RegisterRequest $request)
     {
         try {
             //トランザクション開始
             DB::beginTransaction();
 
-            $request->validate([
-                'username' => 'required|string|min:5|max:15',
-                'email' => 'required|email',
-                'password' => 'required|string|min:8'
-            ]);
-
-            $user = User::create([
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]);
+            $user_input_info = User::userCreate($request);
 
             Log::info("入力されたユーザー情報");
-            Log::info($user);
+            Log::info($user_input_info);
 
             //コミット
             DB::commit();
