@@ -91,7 +91,7 @@ paths:
                     example: 0
                   message:
                     type: string
-                    example: "User authentication successful"
+                    example: "Login successful! Welcome back."
                   token:
                     type: string
                     example: "2|fafethetothkwjthwkjthkwthkhkhtaH"
@@ -107,4 +107,4 @@ paths:
                     example: 9
                   message:
                     type: string
-                    example: "Invalid username or password"
+                    example: "Invalid username or password. Please try again."
