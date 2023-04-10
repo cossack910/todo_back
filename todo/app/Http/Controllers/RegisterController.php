@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Request\RegisterRequest;
 use App\Models\User;
 use App\Common\RegisterUtil;
-use App\Const\AuthConst;
+use App\Const\RegisterConst;
 use Exception;
 
 
@@ -18,7 +18,7 @@ class RegisterController extends Controller
         try {
             //トランザクション開始
             DB::beginTransaction();
-
+            //ユーザー登録
             $user_input_info = User::userCreate($request);
 
             Log::info("入力されたユーザー情報");
@@ -33,8 +33,8 @@ class RegisterController extends Controller
             // エラーレスポンスを返す
             return response()->json(
                 RegisterUtil::retJsonArr(
-                    AuthConst::RESULTCODE_FAILED,
-                    AuthConst::MESSAGE_FAILED
+                    RegisterConst::RESULTCODE_FAILED,
+                    RegisterConst::MESSAGE_FAILED
                 ),
                 400
             );
@@ -42,8 +42,8 @@ class RegisterController extends Controller
 
         return response()->json(
             RegisterUtil::retJsonArr(
-                AuthConst::RESULTCODE_SUCCESS,
-                AuthConst::MESSAGE_SUCCESS
+                RegisterConst::RESULTCODE_SUCCESS,
+                RegisterConst::MESSAGE_SUCCESS
             ),
             201
         );

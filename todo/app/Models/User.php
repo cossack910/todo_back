@@ -71,7 +71,7 @@ class User extends Authenticatable
     {
         $user = User::where('username', $request->username)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return false;
+            return "failed";
         }
         return $user->createToken('auth_token')->plainTextToken;
     }
