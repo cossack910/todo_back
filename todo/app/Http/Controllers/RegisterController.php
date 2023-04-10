@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Http\Request\RegisterRequest;
 use App\Models\User;
-use App\Common\Util;
-use App\Const\AuthConst;
+use App\Common\RegisterUtil;
+use App\Const\RegisterConst;
 use Exception;
 
 
@@ -18,7 +18,7 @@ class RegisterController extends Controller
         try {
             //トランザクション開始
             DB::beginTransaction();
-
+            //ユーザー登録
             $user_input_info = User::userCreate($request);
 
             Log::info("入力されたユーザー情報");
@@ -32,18 +32,18 @@ class RegisterController extends Controller
             Log::alert("不正な値が入力されました。");
             // エラーレスポンスを返す
             return response()->json(
-                Util::retJsonArr(
-                    AuthConst::RESULTCODE_FAILED,
-                    AuthConst::MESSAGE_FAILED
+                RegisterUtil::retJsonArr(
+                    RegisterConst::RESULTCODE_FAILED,
+                    RegisterConst::MESSAGE_FAILED
                 ),
                 400
             );
         }
 
         return response()->json(
-            Util::retJsonArr(
-                AuthConst::RESULTCODE_SUCCESS,
-                AuthConst::MESSAGE_SUCCESS
+            RegisterUtil::retJsonArr(
+                RegisterConst::RESULTCODE_SUCCESS,
+                RegisterConst::MESSAGE_SUCCESS
             ),
             201
         );

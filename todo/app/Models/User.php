@@ -45,6 +45,12 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
+    /**
+     * ユーザー登録を行うメソッド
+     *
+     * @param RegisterRequest $request
+     * @return void
+     */
     public static function userCreate($request)
     {
         User::create([
@@ -52,5 +58,21 @@ class User extends Authenticatable
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+    }
+
+
+    /**
+     * ログイン認証を行うメソッド
+     *
+     * @param LoginRequest $request
+     * @return false|stirng
+     */
+    public static function userAuth($request)
+    {
+        $user = User::where('username', $request->username)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return "failed";
+        }
+        return $user->createToken('auth_token')->plainTextToken;
     }
 }
