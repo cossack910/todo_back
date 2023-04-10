@@ -92,6 +92,9 @@ paths:
                   message:
                     type: string
                     example: "User authentication successful"
+                  token:
+                    type: string
+                    example: "2|fafethetothkwjthwkjthkwthkhkhtaH"
         401:
           description: "Unauthorized"
           content:

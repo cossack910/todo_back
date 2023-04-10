@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Http\Request\RegisterRequest;
 use App\Models\User;
-use App\Common\Util;
+use App\Common\RegisterUtil;
 use App\Const\AuthConst;
 use Exception;
 
@@ -32,7 +32,7 @@ class RegisterController extends Controller
             Log::alert("不正な値が入力されました。");
             // エラーレスポンスを返す
             return response()->json(
-                Util::retJsonArr(
+                RegisterUtil::retJsonArr(
                     AuthConst::RESULTCODE_FAILED,
                     AuthConst::MESSAGE_FAILED
                 ),
@@ -41,7 +41,7 @@ class RegisterController extends Controller
         }
 
         return response()->json(
-            Util::retJsonArr(
+            RegisterUtil::retJsonArr(
                 AuthConst::RESULTCODE_SUCCESS,
                 AuthConst::MESSAGE_SUCCESS
             ),
