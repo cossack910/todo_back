@@ -65,8 +65,8 @@ paths:
 
   "/api/auth/login":
     post:
-      summary: "User authentication"
-      description: "This endpoint authenticates a user with the provided username and password"
+      summary: "ログイン機能"
+      description: "ユーザー名とパスワードを用いてログイン認証をします。成功時はトークンを返却します。"
       requestBody:
         required: true
         content:
@@ -108,3 +108,44 @@ paths:
                   message:
                     type: string
                     example: "Invalid username or password. Please try again."
+  
+  "/api/auth/logout":
+    post:
+      summary: "ログインアウト機能"
+      description: "アクセストークンを削除します。"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      responses:
+        204:
+          description: "ログアウト成功時"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultcode:
+                    type: integer
+                    example: 0
+                  message:
+                    type: string
+                    example: "Logout successfully."
+        401:
+          description: "ログアウト失敗時"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultcode:
+                    type: integer
+                    example: 9
+                  message:
+                    type: string
+                    example: "Invalid request. Please try again."

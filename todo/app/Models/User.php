@@ -65,7 +65,7 @@ class User extends Authenticatable
      * ログイン認証を行うメソッド
      *
      * @param LoginRequest $request
-     * @return false|stirng
+     * @return stirng
      */
     public static function userAuth($request)
     {
