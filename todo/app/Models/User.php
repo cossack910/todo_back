@@ -6,7 +6,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -44,35 +43,4 @@ class User extends Authenticatable
     ];
 
     protected $table = 'users';
-
-    /**
-     * ユーザー登録を行うメソッド
-     *
-     * @param RegisterRequest $request
-     * @return void
-     */
-    public static function userCreate($request)
-    {
-        User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-    }
-
-
-    /**
-     * ログイン認証を行うメソッド
-     *
-     * @param LoginRequest $request
-     * @return stirng
-     */
-    public static function userAuth($request)
-    {
-        $user = User::where('username', $request->username)->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return "failed";
-        }
-        return $user->createToken('auth_token')->plainTextToken;
-    }
 }

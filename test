@@ -1,0 +1,5 @@
+test:
+
+curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"username":"aaadsdsd","email":"unkoa@gmail.com" ,"password":"asdfghjk"}' localhost:8000/api/auth/register
+
+curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"username":"aaadsdsd", "password":"asdfghjk"}' localhost:8000/api/auth/login

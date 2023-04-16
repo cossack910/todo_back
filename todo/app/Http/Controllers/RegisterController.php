@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\{Log, DB};
 use App\Http\Request\RegisterRequest;
-use App\Models\User;
-use App\Common\RegisterUtil;
-use App\Const\RegisterConst;
+use App\Services\RegisterService;
+use App\Http\Resources\RegisterResource;
 use Exception;
-
 
 class RegisterController extends Controller
 {
+    private $registerService;
+
+    public function __construct(RegisterService $registerService)
+    {
+        $this->registerService = $registerService;
+    }
+
     public function regist(RegisterRequest $request)
     {
         try {
+            Log::info($request);
             //トランザクション開始
             DB::beginTransaction();
             //ユーザー登録
-            $user_input_info = User::userCreate($request);
-
-            Log::info("入力されたユーザー情報");
-            Log::info($user_input_info);
-
+            $this->registerService->userCreate($request);
             //コミット
             DB::commit();
         } catch (Exception $e) {
@@ -31,21 +32,8 @@ class RegisterController extends Controller
             DB::rollBack();
             Log::alert("不正な値が入力されました。");
             // エラーレスポンスを返す
-            return response()->json(
-                RegisterUtil::retJsonArr(
-                    RegisterConst::RESULTCODE_FAILED,
-                    RegisterConst::MESSAGE_FAILED
-                ),
-                400
-            );
+            return (new RegisterResource((object) ['status' => 'error']))->response()->setStatusCode(400);
         }
-
-        return response()->json(
-            RegisterUtil::retJsonArr(
-                RegisterConst::RESULTCODE_SUCCESS,
-                RegisterConst::MESSAGE_SUCCESS
-            ),
-            201
-        );
+        return (new RegisterResource((object) ['status' => 'success']))->response()->setStatusCode(200);
     }
 }
