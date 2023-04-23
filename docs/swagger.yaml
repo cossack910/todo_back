@@ -10,6 +10,13 @@ servers:
   - url: http://staging-api.example.com
     description: ステージングサーバー(大嘘)
 
+components:
+  securitySchemes:
+    BearerAuth:            
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+
 paths:
   "/api/auth/register":
     post:
@@ -111,17 +118,10 @@ paths:
   
   "/api/auth/logout":
     post:
-      summary: "ログインアウト機能"
+      summary: "ログアウト機能"
       description: "アクセストークンを削除します。"
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
+      security:
+        - BearerAuth: [] 
       responses:
         204:
           description: "ログアウト成功時"
@@ -149,3 +149,4 @@ paths:
                   message:
                     type: string
                     example: "Invalid request. Please try again."
+  

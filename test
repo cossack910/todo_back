@@ -1,5 +1,19 @@
 test:
 
-curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"username":"aaadsdsd","email":"unkoa@gmail.com" ,"password":"asdfghjk"}' localhost:8000/api/auth/register
+curl -X POST \
+-H "X-Requested-With: XMLHttpRequest" \
+-H "Content-Type: application/json"  \
+-d '{"username":"testman1","email":"testman1@gmail.com" ,"password":"password"}' \
+localhost:8000/api/auth/register
 
-curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"username":"aaadsdsd", "password":"asdfghjk"}' localhost:8000/api/auth/login
+curl -X POST \ 
+-H "X-Requested-With: XMLHttpRequest" \
+-H "Content-Type: application/json" \
+-d '{"username":"testman1", "password":"password"}' \
+localhost:8000/api/auth/login
+
+curl -X POST \
+-H "X-Requested-With: XMLHttpRequest" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer 24|06sHiVXkFCEbMrkPHFIWSmCtwIH59H1eLziOOm2B" \
+localhost:8000/api/auth/logout
