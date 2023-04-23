@@ -19,7 +19,9 @@ class LoginResource extends JsonResource
         return [
             "resultcode" => LoginConst::RESULTCODE_SUCCESS,
             "message" => LoginConst::MESSAGE_SUCCESS,
-            "token" => $this->resource->token
+            "token" => $this->resource->token,
+            "token_type" => "Bearer",
+            "expires_in" => 3600
         ];
     }
 
