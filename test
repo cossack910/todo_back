@@ -6,14 +6,14 @@ curl -X POST \
 -d '{"username":"testman1","email":"testman1@gmail.com" ,"password":"password"}' \
 localhost:8000/api/auth/register
 
-curl -X POST \ 
+curl -X POST \
 -H "X-Requested-With: XMLHttpRequest" \
 -H "Content-Type: application/json" \
 -d '{"username":"testman1", "password":"password"}' \
-localhost:8000/api/auth/login
+"http://localhost:8000/api/auth/login"
 
 curl -X POST \
 -H "X-Requested-With: XMLHttpRequest" \
 -H "Accept: application/json" \
--H "Authorization: Bearer 24|06sHiVXkFCEbMrkPHFIWSmCtwIH59H1eLziOOm2B" \
+-H "Authorization: Bearer 2|cdTt0k58xvCrI1E0YZvWzW7qkzEN96Wdw639CF94" \
 localhost:8000/api/auth/logout
