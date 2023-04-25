@@ -10,13 +10,6 @@ servers:
   - url: http://staging-api.example.com
     description: ステージングサーバー(大嘘)
 
-components:
-  securitySchemes:
-    BearerAuth:            
-      type: http
-      scheme: bearer
-      bearerFormat: JWT 
-
 paths:
   "/api/auth/register":
     post:
@@ -149,4 +142,194 @@ paths:
                   message:
                     type: string
                     example: "Invalid request. Please try again."
-  
+
+  "/api/todo/show":
+    get:
+      summary: "タスク一覧取得機能"
+      description: "登録したタスク一覧を取得し、ダッシュボードに表示します。"
+      operationId: getTasks
+      security:
+        - BearerAuth: [] 
+      responses:
+        200:
+          description: タスク一覧
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    user_id:
+                      type: integer
+                      example: 42
+                    title:
+                      type: string
+                      example: Buy groceries
+                    description:
+                      type: string
+                      nullable: true
+                      example: Buy milk, eggs, and bread
+                    category:
+                      type: string
+                      nullable: true
+                      example: Shopping
+                    priority:
+                      type: integer
+                      example: 1
+                    due_date:
+                      type: string
+                      format: date
+                      example: '2023-05-01'
+                    completed:
+                      type: boolean
+                      example: false
+                    created_at:
+                      type: string
+                      format: date-time
+                      example: '2023-04-25T12:00:00Z'
+                    updated_at:
+                      type: string
+                      format: date-time
+                      example: '2023-04-25T12:00:00Z'
+        400:
+          description: Bad request. User ID must be an integer.
+        404:
+          description: Not found. User not found.
+  "/api/todo/create":
+    post:
+      summary: タスクを作製します。
+      description: ログイン中にのみ書き込み可
+      operationId: createTask
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: The task to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                  nullable: true
+                category:
+                  type: string
+                  nullable: true
+                priority: 
+                  type: integer
+                due_date:
+                  type: string
+                  format: date
+                completed:
+                  type: boolean
+              required:
+                - title
+                - priority
+                - due_date
+                - completed
+      responses:
+        201:
+          description: Task created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  title:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  category:
+                    type: string
+                    nullable: true
+                  priority:
+                    type: integer
+                  due_date:
+                    type: string
+                    format: date
+                  completed:
+                    type: boolean
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+        400:
+          description: Bad request. Invalid input data.
+        401:
+          description: Unauthorized. Invalid or missing Bearer token.
+  "/api/message/create":
+    post:
+        summary: タイムトラベル機能です
+        description: 達成したタスクや未クリアのタスクに対してメッセージを送ります。
+        operationId: createTimeTravelMessage
+        security:
+          - bearerAuth: []
+        requestBody:
+          description: The time travel message to create.
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                  message:
+                    type: string
+                  send_date:
+                    type: string
+                    format: date
+                required:
+                  - task_id
+                  - message
+                  - send_date
+        responses:
+          201:
+            description: Time travel message created successfully.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    task_id:
+                      type: integer
+                    message:
+                      type: string
+                    send_date:
+                      type: string
+                      format: date
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+          400:
+            description: Bad request. Invalid input data.
+          401:
+            description: Unauthorized. Invalid or missing Bearer token.
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
