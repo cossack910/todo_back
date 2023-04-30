@@ -24,14 +24,14 @@ class RegisterRequest extends FormRequest
     }
 
     //カスタムレスポンス
-    // protected function failedValidation(Validator $validator)
-    // {
-    //     $response = new JsonResponse([
-    //         'status' => 'error',
-    //         'message' => 'Validation failed',
-    //         'errors' => $validator->errors()
-    //     ], 422);
+    protected function failedValidation(Validator $validator)
+    {
+        $response = new JsonResponse([
+            'status' => 'error',
+            'message' => 'Validation failed',
+            'errors' => $validator->errors()
+        ], 422);
 
-    //     throw new HttpResponseException($response);
-    // }
+        throw new HttpResponseException($response);
+    }
 }

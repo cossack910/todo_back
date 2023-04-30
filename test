@@ -17,3 +17,9 @@ curl -X POST \
 -H "Accept: application/json" \
 -H "Authorization: Bearer 2|cdTt0k58xvCrI1E0YZvWzW7qkzEN96Wdw639CF94" \
 localhost:8000/api/auth/logout
+
+curl \
+-H "X-Requested-With: XMLHttpRequest" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer 4|FHpnjem848hvtisoSFwUEAtK8S4kVFgAytScpY22" \
+localhost:8000/api/todo/show

@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/todo/show', [TodoController::class, 'show']);
+Route::get('/todo/show', [TodoController::class, 'show'])->middleware('auth:sanctum');
 
 //ユーザー認証周り
 Route::post('/auth/register', [RegisterController::class, 'regist']);
