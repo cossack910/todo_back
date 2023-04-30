@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TodoShowResource extends JsonResource
