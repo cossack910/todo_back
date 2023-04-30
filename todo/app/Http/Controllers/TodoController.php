@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\TodoService;
 use Illuminate\Http\Request;
-use App\Models\Task;
+use App\Http\Resources\TodoShowResource;
 use Illuminate\Support\Facades\Log;
 
 class TodoController extends Controller
 {
-    //
-    public function show()
+    private $todoService;
+
+    public function __construct(TodoService $todoService)
     {
-        $tasks_model = new Task();
-        return response()->json($tasks_model->all());
+        $this->todoService = $todoService;
+    }
+
+    public function show(Request $requests)
+    {
+        $tasks = $this->todoService->showAllTask($requests);
+        Log::info($tasks);
+        return (new TodoShowResource((object) ['status' => 'success', 'tasks' => $tasks]))->response()->setStatusCode(200);
     }
 }
