@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\TodoService;
 use Illuminate\Http\Request;
+use App\Http\Resources\TodoShowResource;
 use Illuminate\Support\Facades\Log;
 
 class TodoController extends Controller
@@ -17,7 +18,8 @@ class TodoController extends Controller
 
     public function show(Request $requests)
     {
-        $res = $this->todoService->showAllTask($requests);
-        return response()->json($res);
+        $tasks = $this->todoService->showAllTask($requests);
+        Log::info($tasks);
+        return (new TodoShowResource((object) ['status' => 'success', 'tasks' => $tasks]))->response()->setStatusCode(200);
     }
 }

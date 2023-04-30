@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Models\Task;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class TodoService
 {
