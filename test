@@ -23,3 +23,11 @@ curl \
 -H "Accept: application/json" \
 -H "Authorization: Bearer 2|LKennbvA8mlvXGICPBVBCxJeBkn6w2S9m3vV9TrO" \
 localhost:8000/api/todo/show
+
+curl \
+-H "X-Requested-With: XMLHttpRequest" \
+-H "Accept: application/json" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer 3|jF9LNimg7ysKiFrUPVh6d7HzAdZW1eOS9PUNAxwd" \
+-d '{"title":"test", "description":"テスト用のタスクなんでもいい", "category":"テスト", "priority":1, "due_date":"2023-07-07"}' \
+localhost:8000/api/todo/create

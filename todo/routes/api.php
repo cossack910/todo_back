@@ -24,7 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//タスク周り
 Route::get('/todo/show', [TodoController::class, 'show'])->middleware('auth:sanctum');
+Route::post('/todo/create', [TodoController::class, 'create'])->middleware('auth:sanctum');
+Route::delete('/todo/delete', [TodoController::class, 'delete'])->middleware('auth:sanctum');
+Route::put('/todo/edit', [TodoController::class, 'edit'])->middleware('auth:sanctum');
 
 //ユーザー認証周り
 Route::post('/auth/register', [RegisterController::class, 'regist']);

@@ -24,6 +24,25 @@ class TodoService
     }
 
     /**
+     * タスクを作製するメソッド
+     * 
+     * @return array
+     */
+    public function createTask($requests)
+    {
+        $user_id = $this->getUserId($requests);
+        return Task::create([
+            'user_id' => $user_id,
+            'title' => $requests->title,
+            'description' => $requests->description,
+            'category' => $requests->category,
+            'priority' => $requests->priority,
+            'due_date' => $requests->due_date,
+            'completed' => false
+        ]);
+    }
+
+    /**
      * ユーザーIDを取得するメソッド
      *
      * @return int|null
