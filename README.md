@@ -11,5 +11,10 @@ model作製コマンド
 php artisan make:model モデル名
 ```
 
+テスト作製コマンド
+```
+php artisan make:test テスト名Test
+```
+
 ## openAPI
 https://cossack910.github.io/todo_back/dist/
